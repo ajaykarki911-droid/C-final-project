@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<windows.h>   // this header file has sleep() funtion
-
+#include <time.h>  // this header file has time() function
+#include<direct.h> // this header file has mkdir() function
 // Timer
 void runTimer(int seconds, char message[])
 {
@@ -16,7 +17,24 @@ void runTimer(int seconds, char message[])
     printf("\nTime's up!\n");
     Beep(1000, 500); // for sound alert
 }
-
+void logSession(int workMins, int breakMins, int count)
+{
+    mkdir("pomodoro_logs");
+    FILE *file = fopen("pomodoro_logs/session_log.csv", "a");
+    if (file == NULL)
+    {
+        printf("Error creating log file.\n");
+        return;
+    }
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+    fprintf(file, "%d-%02d-%02d %02d:%02d:%02d, %d, %d, %d\n", 
+            t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, 
+            t->tm_hour, t->tm_min, t->tm_sec, 
+            workMins, breakMins, count);   
+    fclose(file);
+    printf("Session saved in csv file.\n");
+}
 int main()
 {
     int workTime;
@@ -47,7 +65,7 @@ int main()
     }
     
     printf("\n Pomodoro Timer \n");
-
+    int pomodoroCount = 0;
     while (1) 
     {
         // Work 
@@ -55,13 +73,16 @@ int main()
 
         // Break 
         runTimer(breakTime, "It's break time!");
+        pomodoroCount++;
 
         printf("\nDo you want to continue? (1 = Yes, 0 = No): ");
         scanf("%d", &choice);
 
         if (choice == 0)
         {
+            logSession(workTime / 60, breakTime / 60, pomodoroCount);
             printf("Session ended. Good job!\n");
+            printf("Total pomodoros completed: %d\n", pomodoroCount);
             break;
         }
     }

@@ -1,110 +1,123 @@
-# ⏳ Terminal-Based Pomodoro Productivity Tracker (C)
+# 🍅 Pomodoro Timer in C
 
-A simple yet powerful Pomodoro productivity tracker built using C. This terminal-based application helps users manage focus sessions, track productivity, and generate reports — all without a graphical interface.
+A simple **console-based Pomodoro Timer** built using C.
+This program helps improve productivity by alternating between focused work sessions and short breaks, while also logging session data into a CSV file.
 
 ---
 
 ## 🚀 Features
 
-- ⏱️ Live countdown timer in terminal (no scrolling)
-- 🔄 Pomodoro modes:
-  - 25 min work / 5 min break
-  - 50 min deep work / 10 min break
-- 🔔 Alerts when session ends
-- 🧠 Smart break suggestion (long break after 4 sessions)
-- 📝 Session logging using file handling
-- 📊 Daily and weekly productivity reports
+* ⏱️ Custom and default timer modes
+* 🔁 Continuous Pomodoro cycles
+* 🔔 Sound alert using system beep
+* 📁 Automatic log folder creation
+* 📊 Session logging in `.csv` format
+* 🖥️ Real-time countdown display
 
 ---
 
 ## 🛠️ Technologies Used
 
-- C Programming Language
-- Standard Libraries:
-  - stdio.h
-  - time.h
-  - stdlib.h
-- File Handling (fopen, fprintf, fscanf)
+* C Programming Language
+* Standard Libraries:
+
+  * `stdio.h`
+  * `time.h`
+* Windows-specific Libraries:
+
+  * `windows.h` (for Sleep and Beep)
+  * `direct.h` (for mkdir)
 
 ---
 
-## 📂 File Structure
+## 📦 How It Works
 
-project/
-│── main.c
-│── sessions.log
-│── README.md
+1. Choose mode:
 
----
+   * **Default Mode** → 25 min work + 5 min break
+   * **Custom Mode** → Enter your own time values
 
-## ⚙️ How It Works
+2. The timer will:
 
-1. User selects a mode (Pomodoro / Deep Work)
-2. Timer runs in terminal with real-time countdown
-3. After session ends:
-   - Alert is triggered
-   - Session is logged into sessions.log
-4. Program tracks sessions and:
-   - Suggests long breaks
-   - Generates summaries
+   * Start the work session
+   * Automatically switch to break
+   * Repeat until you stop
+
+3. When you exit:
+
+   * Session details are saved in a CSV file
 
 ---
 
-## 📝 Logging System
+## 📁 Output
 
-Each session is stored in sessions.log in CSV format:
+A folder named:
 
-Task Name, Date, Start Time, Duration
+```
+pomodoro_logs/
+```
 
----
+Will be created automatically.
 
-## 📊 Reports
+Inside it:
 
-- Daily summary of completed sessions
-- Weekly productivity analysis
-- Tracks consistency and work patterns
+```
+session_log.csv
+```
 
----
+Each session is stored like:
 
-## 🧪 Testing
-
-- Timer accuracy checked against system clock
-- File handling tested for correctness
-- Edge cases handled:
-  - Empty file
-  - Invalid input
+```
+YYYY-MM-DD HH:MM:SS, Work(min), Break(min), Count
+```
 
 ---
 
-## 🎯 Use Cases
+## ▶️ How to Run
 
-- Students improving study habits
-- Programmers doing deep work
-- Lightweight productivity tracking without apps
+### Compile:
 
----
+```bash
+gcc pomodoro.c -o pomodoro
+```
 
-## 🔮 Future Improvements
+### Run:
 
-- GUI version
-- Notifications (sound system integration)
-- Data visualization (graphs)
-- Cross-platform enhancements
-
----
-
-## 📌 Conclusion
-
-This project demonstrates practical use of:
-- Time-based logic
-- File handling
-- Data processing
-- User interaction in C
-
-A simple but effective productivity tool.
+```bash
+./pomodoro
+```
 
 ---
 
-## 👤 Author
+## ⚠️ Notes
 
-Your Name
+* This program is designed for **Windows only** (uses `windows.h`)
+* Sound alert may not work if system sound is disabled
+* `Sleep()` uses milliseconds (1000 = 1 second)
+
+---
+
+## 💡 Future Improvements
+
+* Add pause/resume feature
+* GUI version (using graphics library)
+* Cross-platform support (Linux/macOS)
+* Notifications instead of beep
+* Statistics dashboard
+
+---
+
+## 👨‍💻 Author
+
+Created as a **C Final Project** to demonstrate:
+
+* File handling
+* Time functions
+* Loop control
+* Basic system calls
+
+---
+
+## 📌 License
+
+This project is open-source and free to use.
