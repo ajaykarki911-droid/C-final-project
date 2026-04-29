@@ -1,0 +1,1 @@
+this file was made to test whether the the push thorugh git terminal works or not
