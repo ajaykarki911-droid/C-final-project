@@ -3,7 +3,7 @@
 #include <time.h>  // this header file has time() function
 #include<direct.h> // this header file has mkdir() function
 // Timer
-void runTimer(int seconds, char message[])
+void runtimer(int seconds, char message[])
 {
     printf("\n%s\n", message);
 
@@ -17,7 +17,7 @@ void runTimer(int seconds, char message[])
     printf("\nTime's up!\n");
     Beep(1000, 500); // for sound alert
 }
-void logSession(int workMins, int breakMins, int count)
+void logsession(int workMins, int breakMins, int count)
 {
     mkdir("pomodoro_logs");
     FILE *file = fopen("pomodoro_logs/session_log.csv", "a");
@@ -69,10 +69,10 @@ int main()
     while (1) 
     {
         // Work 
-        runTimer(workTime, "Pomodoro timer has started!");
+        runtimer(workTime, "Pomodoro timer has started!");
 
         // Break 
-        runTimer(breakTime, "It's break time!");
+        runtimer(breakTime, "It's break time!");
         pomodoroCount++;
 
         printf("\nDo you want to continue? (1 = Yes, 0 = No): ");
@@ -80,7 +80,7 @@ int main()
 
         if (choice == 0)
         {
-            logSession(workTime / 60, breakTime / 60, pomodoroCount);
+            logsession(workTime / 60, breakTime / 60, pomodoroCount);
             printf("Session ended. Good job!\n");
             printf("Total pomodoros completed: %d\n", pomodoroCount);
             break;
